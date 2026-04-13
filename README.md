@@ -128,3 +128,58 @@ npm run test
 
 Made for the Kalnet frontend Phase 1 project.
 
+---
+
+## ✅ Self-Review Checklist (PR Submission)
+
+### TypeScript
+- [x] `tsconfig.json` has `"strict": true`
+- [x] `npx tsc --noEmit` passes with zero errors
+- [x] No `any` types except where explicitly required by third-party library constraints
+- [x] All props, state, and function return types are explicitly typed
+- [x] Generics used in `ApiResponse<T>`, `Validator<T>`, `pick<T,K>`, `omit<T,K>`
+- [x] Enums used — `CourseLevel`
+
+### Pages & Rendering Strategy
+- [x] `/` (Home) — SSR (no `"use client"` at page level)
+- [x] `/about` — SSR server component, interactive parts in `AboutClient.tsx`
+- [x] `/services` — SSR (no `"use client"` at page level)
+- [x] `/services/[slug]` — SSG via `generateStaticParams()`
+- [x] `/courses` — SSR server component, Redux-connected part in `CoursesClient.tsx`
+- [x] `/contact` — SSR (no `"use client"` at page level)
+- [x] `/login` — SSR (no `"use client"` at page level)
+- [x] `/signup` — SSR (no `"use client"` at page level)
+- [x] `/dashboard` — SSR server component, auth-connected part in `DashboardClient.tsx`
+- [x] No page file is CSR-only
+
+### State Management
+- [x] Redux Toolkit — `authSlice` (login, signup, logout, async thunks)
+- [x] Redux Toolkit — `coursesSlice` (loadCourses, setFilter, async thunk)
+- [x] Zustand — `useUIStore` (theme, mobile menu, modals, toasts)
+- [x] Zustand — `useFormStore` (contact form field state)
+- [x] Both Redux and Zustand used in the same project
+
+### API Integration
+- [x] `fetchServices`, `fetchServiceBySlug`, `fetchCourses`, `fetchTestimonials`, `fetchTeam`
+- [x] `loginUser`, `signupUser`, `submitContactForm`
+- [x] Generic `ApiResponse<T>` wrapper with typed success/error handling
+- [x] Async/await with proper error boundaries throughout
+
+### Responsive Design
+- [x] Mobile-first Tailwind CSS — no custom CSS written
+- [x] Breakpoints: `sm:`, `md:`, `lg:` used consistently
+- [x] Dark/light theme toggle implemented and persisted to localStorage
+
+### Testing
+- [x] Jest + React Testing Library configured
+- [x] 256 tests across 38 test suites — all passing
+- [x] Coverage: Statements 83% | Branches 75% | Functions 83% | Lines 83%
+- [x] All thresholds exceed 70% minimum
+- [x] Tests cover: UI components, hooks, Redux slices, Zustand stores, API, validators, utils, sections, layout
+
+### Code Quality
+- [x] No unused imports or dead code
+- [x] Path aliases configured (`@/*`)
+- [x] Components split by concern: `ui/`, `features/`, `sections/`, `layout/`, `animations/`
+- [x] Loading and error boundaries implemented (`loading.tsx`, `error.tsx`, `not-found.tsx`)
+
