@@ -126,7 +126,7 @@ npm run test
 
 ---
 
-Made for the Kalnet frontend Phase 1 project.
+Made for the Kalnet frontend Phase (1) project.
 
 ---
 
