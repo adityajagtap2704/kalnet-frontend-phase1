@@ -292,17 +292,13 @@ export default function ChatAssistant() {
                     className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed max-w-[85%] ${
                       msg.role === "user"
                         ? "text-white rounded-br-sm"
-                        : "rounded-bl-sm border"
+                        : "rounded-bl-sm border bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700"
                     }`}
                     style={
                       msg.role === "user"
                         ? { background: "linear-gradient(135deg, #3b82f6, #6366f1)" }
                         : undefined
                     }
-                    // explicit light/dark for assistant bubble — no glass so it's always readable
-                    {...(msg.role === "assistant" ? {
-                      className: `px-4 py-2.5 rounded-2xl rounded-bl-sm text-sm leading-relaxed max-w-[85%] border bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700`
-                    } : {})}
                   >
                     {renderContent(msg.content)}
                   </div>
