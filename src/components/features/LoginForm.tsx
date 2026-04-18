@@ -2,15 +2,19 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "@/components/ui";
 import { login, clearError } from "@/store/redux/slices/authSlice";
+import { loadUserEnrollment } from "@/store/redux/slices/enrollmentSlice";
+import { loadEnrollment } from "@/store/redux/store";
 import { AppDispatch, RootState } from "@/store/redux/store";
 import { validateForm, required, isEmail, composeValidators } from "@/lib/validators";
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") ?? "/dashboard";
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector((state: RootState) => state.auth);
 
@@ -38,7 +42,11 @@ export default function LoginForm() {
 
     const result = await dispatch(login(formData));
     if (login.fulfilled.match(result)) {
-      router.push("/dashboard");
+      // Restore this user's saved enrollments from localStorage
+      const userId = result.payload.user.id;
+      const saved = loadEnrollment(userId);
+      dispatch(loadUserEnrollment(saved));
+      router.push(redirect);
     }
   };
 

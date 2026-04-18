@@ -129,6 +129,9 @@ export type Nullable<T> = T | null;
 export interface NavLink {
   label: string;
   href: string;
+  description?: string;
+  icon?: string;
+  accent?: string;
   children?: NavLink[];
 }
 

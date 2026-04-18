@@ -141,15 +141,38 @@ function TeamMemberCard({ member }: { member: ZentrixTeamMember }) {
 function ValuesCard({ title, desc, icon, color }: { title: string; desc: string; icon: string; color: string }) {
   const Icon = (Icons[icon as keyof typeof Icons] || Icons.HelpCircle) as React.ElementType;
   return (
-    <Card variant="bordered" padding="none" hoverable className="h-full group transition-all duration-300 hover:-translate-y-1">
-      <div className="relative h-full p-8 flex flex-col">
-        <div className="w-12 h-12 rounded-xl border flex items-center justify-center mb-5 transition-all duration-300 bg-white dark:bg-surface-800 border-surface-200 dark:border-surface-700"
-          style={{ color }}>
+    <div
+      className="group relative h-full p-8 rounded-2xl bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-800 flex flex-col cursor-default
+        transition-all duration-300 hover:-translate-y-1
+        hover:border-[var(--vc-border)] hover:shadow-[0_8px_32px_-4px_var(--vc-glow)]"
+      style={{
+        "--vc-glow": `${color}35`,
+        "--vc-border": `${color}55`,
+      } as React.CSSProperties}
+    >
+      {/* Radial bloom */}
+      <div
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at 50% 0%, ${color}14 0%, transparent 70%)` }}
+      />
+      {/* Icon */}
+      <div className="relative mb-5">
+        <div
+          className="w-12 h-12 rounded-xl border flex items-center justify-center transition-all duration-300 group-hover:scale-110 bg-white dark:bg-surface-800 border-surface-200 dark:border-surface-700"
+          style={{ color }}
+        >
           <Icon size={24} strokeWidth={1.5} />
+          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md -z-10"
+            style={{ backgroundColor: `${color}30` }} />
         </div>
-        <h3 className="text-lg font-bold text-surface-900 dark:text-white mb-3 font-display">{title}</h3>
-        <p className="text-sm text-surface-500 dark:text-surface-400 leading-relaxed">{desc}</p>
       </div>
-    </Card>
+      <h3
+        className="relative text-lg font-bold text-surface-900 dark:text-white mb-3 font-display transition-colors duration-300 group-hover:text-[var(--vc-text)]"
+        style={{ "--vc-text": color } as React.CSSProperties}
+      >
+        {title}
+      </h3>
+      <p className="relative text-sm text-surface-500 dark:text-surface-400 leading-relaxed">{desc}</p>
+    </div>
   );
 }
